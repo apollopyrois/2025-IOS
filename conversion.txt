@@ -1,0 +1,131 @@
+#import <Foundation/Foundation.h>
+
+@interface Conversion : NSObject {
+    double miles, kilometers, pounds, kilograms, inches, centimeters, US_dollars, CAN_dollars;
+}
+
+// Conversion methods
+- (void)milesToKilometers:(double)milesInput;
+- (void)kilometersToMiles:(double)kilometersInput;
+- (void)kilogramsToPounds:(double)kilogramsInput;
+- (void)poundsToKilograms:(double)poundsInput;
+- (void)inchesToCentimeters:(double)inchesInput;
+- (void)centimetersToInches:(double)centimetersInput;
+- (void)usToCanadianDollars:(double)usDollarsInput;
+- (void)canadianToUsDollars:(double)canDollarsInput;
+
+@end
+
+@implementation Conversion
+
+// Implement conversion methods
+- (void)milesToKilometers:(double)milesInput {
+    miles = milesInput;
+    kilometers = miles * 1.60934;
+    printf("%.2f miles is equal to %.2f kilometers.\n", miles, kilometers);
+}
+
+- (void)kilometersToMiles:(double)kilometersInput {
+    kilometers = kilometersInput;
+    miles = kilometers * 0.621371;
+    printf("%.2f kilometers is equal to %.2f miles.\n", kilometers, miles);
+}
+
+- (void)kilogramsToPounds:(double)kilogramsInput {
+    kilograms = kilogramsInput;
+    pounds = kilograms * 2.20462;
+    printf("%.2f kilograms is equal to %.2f pounds.\n", kilograms, pounds);
+}
+
+- (void)poundsToKilograms:(double)poundsInput {
+    pounds = poundsInput;
+    kilograms = pounds * 0.453592;
+    printf("%.2f pounds is equal to %.2f kilograms.\n", pounds, kilograms);
+}
+
+- (void)inchesToCentimeters:(double)inchesInput {
+    inches = inchesInput;
+    centimeters = inches * 2.54;
+    printf("%.2f inches is equal to %.2f centimeters.\n", inches, centimeters);
+}
+
+- (void)centimetersToInches:(double)centimetersInput {
+    centimeters = centimetersInput;
+    inches = centimeters * 0.393701;
+    printf("%.2f centimeters is equal to %.2f inches.\n", centimeters, inches);
+}
+
+- (void)usToCanadianDollars:(double)usDollarsInput {
+    US_dollars = usDollarsInput;
+    CAN_dollars = US_dollars * 1.25; // Example exchange rate
+    printf("%.2f US dollars is equal to %.2f Canadian dollars.\n", US_dollars, CAN_dollars);
+}
+
+- (void)canadianToUsDollars:(double)canDollarsInput {
+    CAN_dollars = canDollarsInput;
+    US_dollars = CAN_dollars * 0.80; // Example exchange rate
+    printf("%.2f Canadian dollars is equal to %.2f US dollars.\n", CAN_dollars, US_dollars);
+}
+
+@end
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        Conversion *conversion = [[Conversion alloc] init];
+        int choice;
+        double input;
+
+        printf("Conversion options:\n");
+        printf("1. Miles to Kilometers\n");
+        printf("2. Kilometers to Miles\n");
+        printf("3. Kilograms to Pounds\n");
+        printf("4. Pounds to Kilograms\n");
+        printf("5. Inches to Centimeters\n");
+        printf("6. Centimeters to Inches\n");
+        printf("7. US Dollars to Canadian Dollars\n");
+        printf("8. Canadian Dollars to US Dollars\n");
+
+        printf("Enter your choice (1-8): ");
+        scanf("%d", &choice);
+
+        if (choice < 1 || choice > 8) {
+            printf("Invalid choice. Please run the program again.\n");
+            return 1;
+        }
+
+        printf("Enter the value to convert: ");
+        scanf("%lf", &input);
+
+        // Call the appropriate conversion method based on user's choice
+        switch (choice) {
+            case 1:
+                [conversion milesToKilometers:input];
+                break;
+            case 2:
+                [conversion kilometersToMiles:input];
+                break;
+            case 3:
+                [conversion kilogramsToPounds:input];
+                break;
+            case 4:
+                [conversion poundsToKilograms:input];
+                break;
+            case 5:
+                [conversion inchesToCentimeters:input];
+                break;
+            case 6:
+                [conversion centimetersToInches:input];
+                break;
+            case 7:
+                [conversion usToCanadianDollars:input];
+                break;
+            case 8:
+                [conversion canadianToUsDollars:input];
+                break;
+            default:
+                printf("Unexpected error.\n");
+                break;
+        }
+    }
+    return 0;
+}

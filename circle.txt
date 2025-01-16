@@ -1,0 +1,77 @@
+#import <Foundation/Foundation.h>
+
+@interface Circle : NSObject {
+    double radius;
+    double area;
+    double diameter;
+}
+
+// Setter and getter for radius
+- (void)setRadius:(double)r;
+- (double)getRadius;
+
+// Methods to compute area and diameter
+- (void)computeArea;
+- (void)computeDiameter;
+
+// Methods to get area and diameter
+- (double)getArea;
+- (double)getDiameter;
+
+@end
+
+@implementation Circle
+
+// Set and get methods for radius
+- (void)setRadius:(double)r {
+    radius = r;
+}
+
+- (double)getRadius {
+    return radius;
+}
+
+// Method to compute area
+- (void)computeArea {
+    area = 3.14 * radius * radius;
+}
+
+// Method to compute diameter
+- (void)computeDiameter {
+    diameter = 2 * radius;
+}
+
+// Get methods for area and diameter
+- (double)getArea {
+    return area;
+}
+
+- (double)getDiameter {
+    return diameter;
+}
+
+@end
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        Circle *circle = [[Circle alloc] init];
+        double userRadius;
+
+        // Get radius input from the user
+        printf("Enter the radius of the circle: ");
+        scanf("%lf", &userRadius);
+
+        // Set the radius
+        [circle setRadius:userRadius];
+
+        // Compute area and diameter
+        [circle computeArea];
+        [circle computeDiameter];
+
+        // Display the results
+        printf("For a circle with radius %.2f:\n", [circle getRadius]);
+        printf("Area: %.2f\n", [circle getArea]);
+        printf("Diameter: %.2f\n", [circle getDiameter]);
+    }
+    return 0;
+}
