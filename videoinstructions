@@ -1,0 +1,187 @@
+create new project
+ios app
+
+org identifer: ca.nss.mobi3001.liam
+interface storyboard
+language: swift
+none
+none
+
+assets delete appicon and import nscc png
+control drag drop on each 1x,2x,3x
+
+goto main
+click library +
+drag and drop image
+3 labels
+two text fields adjacent to labels
+slider adjacent to last
+segmented control below
+two switches on left and right
+2 buttons below switches
+
+constrain image
+ctrl + drag top to safe area
+right to trailing to space area
+left to leading to space area
+in attribute select nscc image
+click image, click icon in bottom right and click aspect ratio
+change to 4:1
+change left/right constraints to 30
+
+shift click each label and click constraint button and set width to 80
+ctrl drag each label to left leading to space area
+ctrl drag vertically spacing each label
+
+set names for labels
+nameLabel
+numberLabel
+sliderLabel
+nameText
+numberText
+slider
+
+set the actually label text to 
+Name
+Number
+Slider
+
+stretch fields to safe area 
+ctrl trailing space to safe area and leading space to label for each input field
+
+change each leading space to 10
+
+set each label and input field in the constraint button menu and tick the first baseline constraint for the first two rows
+for slider select vertical centers
+
+stretch the segmented controller to safe area and constrain to each safe area
+constrain vertically to slider
+name the controller segment
+change the text in the attribute menu to switches and buttons
+name leftSwitch
+rightSwitch
+leftButton
+rightButton
+
+change the text in left button to Action
+and right to Alerts
+constrain to safe area and segment controller
+same for buttons, just do the edges to constrain
+
+toggle hidden in the attributes for the buttons
+
+open assistant editor through hamburger top right
+
+set number text field keyboard type to number pad
+
+ctrl drag text fields to make outlets called
+nameText
+numberText
+slider
+sliderLabel
+leftSwitch
+rightSwitch
+leftButton
+rightButton
+
+change attribute of slider to set minimum and maximum to 100 and value to 50
+create constraints for buttons by overlapping buttons with switches and constraining top to segment controller
+
+make sure connection is action
+drag slider over change type to UiSlider
+event value changed
+and name sliderChanged
+
+same for segment controller
+segmentChanged
+Value Changed
+
+same for leftswitch
+switchChanged
+attach right switch to same fuction
+
+leftButtonPressed
+UiButton
+TouchUpInside
+
+rightButtonPressed
+
+goto library select view first
+select tap gesture recognizer drag it onto view
+
+ctrl drag to ibactions
+viewTapped
+
+under viewTapped function
+nameText.resignFirstResponder();
+numberText.resignFirstResponder();
+
+make name text field action
+nameTextExit
+event: Did End on Exit
+
+after viewdidload:
+sliderLabel.text = String(Int(slider.value))
+
+under sliderChanged
+sliderLabel.text = "\(lroundf(slider.value))"
+
+under switchChanged
+let switchState:Bool = sender.isOn
+leftSwitch.setOn(switchState, animated:true)
+rightSwitch.setOn(switchState, animated:true)
+
+under segmentChanged
+if {sender.selectedSegmentIndex == 0) {
+leftSwitch.isHidden = false
+rightSwitch.isHidden = false
+leftButton.isHidden = true
+rightButton.isHidden = true
+} else {
+leftSwitch.isHidden = true
+rightSwitch.isHidden = true
+leftButton.isHidden = false
+rightButton.isHidden = false
+}
+
+under left button pressed
+let actionSheetController = UIAlertController(title: "Action Sheet Title", message: "Action Sheet Message", preferredStyle:.actionSheet)
+
+let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+let clearFieldsActions = UIAlertAction(title: "Clear Fields", style:.destructive) { UIAlertAction in
+ self.nameText.text = ""
+self.numberText.text = ""
+}
+
+actionSheetController.addAction(cancelAction)
+actionSheetController.addAction(clearFieldsAction)
+
+self.present(actionSheetController, animated: true)
+
+}
+
+
+under rightbuttonepressed
+
+var greetingMessage: String = ""
+
+if (nameText.text!.isEmpty){
+  greetingMessage = "Please type your name"
+} else {
+  greetingMessage = "Hello " + nameText.text! + "!"
+}
+
+let alertController = UIAlertController(title: "Name, message: greetingMessage, preferredStyle: .alert)
+
+let alertShowNameAction = UIAlertAction(title: "Ok", style: .default) { UIAlertAction in
+   if (nameText.text!.isEmpty)
+  {
+   self.nameText.becomeFirstResponder()
+   }
+
+alertController.addAction(alertShowNameAction)
+
+self.present(alerControler, animated: true)
+}
+
+
